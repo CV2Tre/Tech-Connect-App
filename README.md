@@ -9,10 +9,7 @@ Welcome to **Tech Connect**, where we bridge the gap between talent and opportun
 ## Features
 
 - **Job Postings:** Explore a wide range of job postings for fullstack, frontend, and backend developers.
-- **Personalized Profiles:** Create a personalized profile showcasing your skills, experience, and interests.
-- **Matchmaking Algorithm:** Our advanced matchmaking algorithm connects developers with job opportunities that align with their expertise and aspirations.
-- **Real-time Notifications:** Stay updated with real-time notifications about new job postings and application status.
-- **Interactive Dashboard:** Easily manage job applications, interviews, and offers through our interactive dashboard.
+- **Filterable Results:** Tailor your search and find the job that suits you with a UX that is designed with developers of all experience levels in mind. Also query for postings based on your tech stack of choice!
 
 ## Technologies Used
 
@@ -24,17 +21,14 @@ Welcome to **Tech Connect**, where we bridge the gap between talent and opportun
 
 Follow us on social media to stay updated with the latest news and developments:
 
-- [Twitter](https://twitter.com/tech_connect)
-- [LinkedIn](https://www.linkedin.com/company/tech-connect)
-- [Facebook](https://www.facebook.com/techconnect)
+- [Twitter](https://twitter.com/tech_connect_cv)
+- [LinkedIn](https://www.linkedin.com/company/tech-connect_cv)
+- [Facebook](https://www.facebook.com/techconnect_cv)
 
-## Contributing
-
-We welcome contributions from developers like you! Whether it's bug fixes, feature enhancements, or feedback, your input helps us grow and improve **Tech Connect** for everyone. Check out our [Contribution Guidelines](CONTRIBUTING.md) to get started.
 
 ## Feedback
 
-Got feedback or suggestions? We'd love to hear from you! Open an [issue](https://github.com/yourusername/tech-connect/issues) or reach out to us directly.
+Got feedback or suggestions? We'd love to hear from you! Open an [issue](https://github.com/CV2Tre/tech-connect/issues) or reach out to us directly.
 
 ## License
 

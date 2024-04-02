@@ -25,6 +25,9 @@ Follow us on social media to stay updated with the latest news and developments:
 - [LinkedIn](https://www.linkedin.com/company/tech-connect_cv)
 - [Facebook](https://www.facebook.com/techconnect_cv)
 
+## ERD (Entity-Relationship Diagram)
+
+![ERD](requirements/TECH CONNECT - ERD .png)
 
 ## Feedback
 
@@ -37,4 +40,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 🌟 **Tech Connect:** Connecting developers with their dream jobs! 🚀✨
-# Tech-Connect-App
+

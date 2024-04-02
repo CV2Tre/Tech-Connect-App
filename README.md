@@ -27,7 +27,7 @@ Follow us on social media to stay updated with the latest news and developments:
 
 ## ERD (Entity-Relationship Diagram)
 
-![ERD](requirements/TECH CONNECT - ERD .png)
+![ERD](requirements/tc_erd.png)
 
 ## Feedback
 

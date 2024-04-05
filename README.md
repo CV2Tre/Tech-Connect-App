@@ -24,6 +24,7 @@ Follow us on social media to stay updated with the latest news and developments:
 - [Twitter](https://twitter.com/tech_connect_cv)
 - [LinkedIn](https://www.linkedin.com/company/tech-connect_cv)
 - [Facebook](https://www.facebook.com/techconnect_cv)
+- www.linkedin.com/in/clora-vernon
 
 ## ERD (Entity-Relationship Diagram)
 

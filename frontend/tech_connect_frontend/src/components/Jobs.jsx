@@ -1,125 +1,67 @@
-import React, { useState } from 'react';
-import { Form, InputGroup, Button, Badge } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Button, Badge } from 'react-bootstrap';
 
 function Jobs({ jobs }) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedTechnologies, setSelectedTechnologies] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
   const [allJobs, setAllJobs] = useState(jobs);
 
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  useEffect(() => {
+    setAllJobs(jobs);
+  }, [jobs]);
 
-  const handleTechnologyClick = (technology) => {
-    if (selectedTechnologies.includes(technology)) {
-      setSelectedTechnologies(selectedTechnologies.filter((tech) => tech !== technology));
+  const handleFilterClick = (filter) => {
+    if (selectedFilters.includes(filter)) {
+      setSelectedFilters(selectedFilters.filter((f) => f !== filter));
     } else {
-      setSelectedTechnologies([...selectedTechnologies, technology]);
+      setSelectedFilters([...selectedFilters, filter]);
     }
   };
 
   const handleReset = () => {
-    setSelectedTechnologies([]);
+    setSelectedFilters([]);
     setAllJobs(jobs);
   };
 
-  const handleClearSearch = () => {
-    setSearchTerm('');
-  };
-
   const filteredJobs = allJobs.filter((job) => {
-    const searchableFields = [
-      job.title.toLowerCase(),
-      job.description.toLowerCase(),
-      job.company_name.toLowerCase(),
-      job.job_type.toLowerCase(),
-      job.salary_range.toLowerCase(),
-      job.posted_date.toLowerCase(),
-      job.category.toLowerCase(),
-      job.experience_levels.map((level) => level.name.toLowerCase()).join(' '),
-      job.technologies.map((tech) => tech.name.toLowerCase()).join(' '),
-    ];
-
-    return (
-      searchableFields.some((field) => field.includes(searchTerm.toLowerCase())) &&
-      (selectedTechnologies.length === 0 ||
-        selectedTechnologies.every((tech) =>
-          job.technologies.some((jobTech) => jobTech.name.toLowerCase() === tech.toLowerCase())
-        ))
-    );
+    const allFilters = [...new Set([...job.categories.map((category) => category.name.toLowerCase()), ...job.technologies.map((tech) => tech.name.toLowerCase())])];
+    return selectedFilters.length === 0 || selectedFilters.some((filter) => allFilters.includes(filter));
   });
 
-  const allTechnologies = jobs.flatMap((job) => job.technologies.map((tech) => tech.name.toLowerCase()));
-  const uniqueTechnologies = [...new Set(allTechnologies)];
+  const allFilters = [...new Set([...jobs.flatMap((job) => job.categories.map((category) => category.name.toLowerCase())), ...jobs.flatMap((job) => job.technologies.map((tech) => tech.name.toLowerCase()))])];
+  const uniqueFilters = [...new Set(allFilters)];
 
   return (
     <div>
-      <div className="job-search-box mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
-      <Form style={{ width: '100%', maxWidth: '600px' }}>
-
-
-          <InputGroup>
-            <Form.Control
-              type="text"
-              placeholder="Search for jobs..."
-              value={searchTerm}
-              onChange={handleInputChange}
-              style={{
-                border: '1px solid #ccc',
-                borderRadius: '4px 0 0 4px',
-                padding: '0.5rem 1rem',
-                fontSize: '1rem',
-                height: '2.5rem',
-              }}
-            />
-            <Button
-              variant="primary"
-              style={{
-                borderRadius: '0 4px 4px 0',
-                padding: '0.5rem 1rem',
-                fontSize: '1rem',
-                height: '2.5rem',
-              }}
-            >
-              Search
-            </Button>
-            <Button
-              variant="danger"
-              pill
-              style={{
-                borderRadius: '4px',
-                padding: '0.5rem 1rem',
-                fontSize: '1rem',
-                height: '2.5rem',
-                marginLeft: '0.5rem',
-              }}
-              onClick={handleClearSearch}
-            >
-              Clear
-            </Button>
-          </InputGroup>
-        </Form>
-      </div>
+      <h3>Showing {filteredJobs.length} results</h3>
       <div className="mb-4" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {uniqueTechnologies.map((tech) => (
+        {uniqueFilters.map((filter) => (
           <Badge
-            key={tech}
+            key={filter}
             pill
-            bg={selectedTechnologies.includes(tech) ? 'primary' : 'secondary'}
-            style={{ margin: '0.25rem', cursor: 'pointer' }}
-            onClick={() => handleTechnologyClick(tech)}
+            bg={selectedFilters.includes(filter) ? 'warning' : 'secondary'}
+            style={{
+              margin: '0.5rem',
+              cursor: 'pointer',
+              backgroundColor: selectedFilters.includes(filter) ? 'yellow' : '#6c757d',
+              color: selectedFilters.includes(filter) ? 'black' : 'white',
+              padding: '0.75rem 1.5rem',
+              fontSize: '1.2rem',
+              transition: 'background-color 0.3s ease-in-out',
+            }}
+            onClick={() => handleFilterClick(filter)}
           >
-            {tech}
+            {filter.charAt(0).toUpperCase() + filter.slice(1)}
           </Badge>
         ))}
         <Button
           variant="danger"
           style={{
             borderRadius: '4px',
-            padding: '0.5rem 1rem',
-            fontSize: '1rem',
-            height: '2.5rem',
+            padding: '0.75rem 1.5rem',
+            fontSize: '1.2rem',
+            height: '3rem',
             marginLeft: '0.5rem',
+            transition: 'background-color 0.3s ease-in-out',
           }}
           onClick={handleReset}
         >
@@ -130,7 +72,6 @@ function Jobs({ jobs }) {
         {filteredJobs.map((job) => (
           <li key={job.id}>
             <h3>{job.title}</h3>
-            <p>{job.description}</p>
             <p>Company: {job.company_name}</p>
             <p>Job Type: {job.job_type}</p>
             <p>Experience Levels:</p>
@@ -141,7 +82,12 @@ function Jobs({ jobs }) {
             </ul>
             <p>Salary Range: {job.salary_range}</p>
             <p>Posted Date: {job.posted_date}</p>
-            <p>Category: {job.category}</p>
+            <p>Categories:</p>
+            <ul>
+              {job.categories.map((category) => (
+                <li key={category.id}>{category.name}</li>
+              ))}
+            </ul>
             <p>Technologies:</p>
             <ul>
               {job.technologies.map((tech) => (

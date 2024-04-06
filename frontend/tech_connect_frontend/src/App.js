@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import Footer from './components/Footer';
+import Home from './components/Home';
 import Jobs from './components/Jobs';
+import Header from './components/Header';
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -24,16 +27,37 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Container>
-          <main>
-            <h2 className="my-4">Tech Connect App</h2>
-
-            <Jobs jobs={jobs} />
-          </main>
-        </Container>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home jobs={jobs} />} />
+          <Route path="/jobs" element={<JobsPage jobs={jobs} />} />
+        </Routes>
+        <Footer />
       </div>
     </Router>
+  );
+}
+
+function JobsPage({ jobs }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const jobType = searchParams.get('type');
+
+  const filteredJobs = jobType
+    ? jobs.filter((job) => job.type.toLowerCase() === jobType.toLowerCase())
+    : jobs;
+
+  return (
+    <Container className="my-5">
+      <Row>
+        <Col>
+         
+          <Jobs jobs={filteredJobs} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

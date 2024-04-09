@@ -23,7 +23,7 @@ from accounts.views import UserCreateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tech_connect.urls')),
-    path('api', include('api.urls')),
+    path('api/', include('api.urls')),
     path('register/', UserCreateView.as_view(), name='user-create'),
 
 

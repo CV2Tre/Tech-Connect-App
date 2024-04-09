@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Jobs from './components/Jobs';
 import Header from './components/Header';
+import LoginComponent from './components/Login';
+import UserProfileComponent from './components/UserProfile'; // Import the UserProfileComponent
+import AdminJobPostings from './components/AdminJobPostings'; // Import the AdminJobPostings component
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -16,7 +19,7 @@ function App() {
         console.log('Fetching jobs from API...');
         const response = await axios.get('http://localhost:8000/job-postings/');
         console.log('Job data received:', response.data);
-        setJobs(response.data); // Assuming the API directly returns an array of jobs
+        setJobs(response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);
       }
@@ -32,6 +35,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home jobs={jobs} />} />
           <Route path="/jobs" element={<JobsPage jobs={jobs} />} />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route path="/profile" element={<UserProfileComponent />} /> {/* Add the route for UserProfileComponent */}
+          <Route path="/admin-job-postings" element={<AdminJobPostings />} /> {/* Add the route for AdminJobPostings */}
         </Routes>
         <Footer />
       </div>
@@ -53,7 +59,6 @@ function JobsPage({ jobs }) {
     <Container className="my-5">
       <Row>
         <Col>
-         
           <Jobs jobs={filteredJobs} />
         </Col>
       </Row>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import Footer from './components/Footer';
@@ -7,8 +7,10 @@ import Home from './components/Home';
 import Jobs from './components/Jobs';
 import Header from './components/Header';
 import LoginComponent from './components/Login';
-import UserProfileComponent from './components/UserProfile'; // Import the UserProfileComponent
-import AdminJobPostings from './components/AdminJobPostings'; // Import the AdminJobPostings component
+import UserProfileComponent from './components/UserProfile';
+import AdminJobPostings from './components/AdminJobPostings';
+import EditJobPostings from './components/EditJobPosting'; // Import the EditJobPostings component
+import CreateJobPosting from './components/CreateJobPosting';
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -36,8 +38,11 @@ function App() {
           <Route path="/" element={<Home jobs={jobs} />} />
           <Route path="/jobs" element={<JobsPage jobs={jobs} />} />
           <Route path="/login" element={<LoginComponent />} />
-          <Route path="/profile" element={<UserProfileComponent />} /> {/* Add the route for UserProfileComponent */}
-          <Route path="/admin-job-postings" element={<AdminJobPostings />} /> {/* Add the route for AdminJobPostings */}
+          <Route path="/profile" element={<UserProfileComponent />} />
+          <Route path="/admin-job-postings" element={<AdminJobPostings />} />
+          <Route path="/edit-job-posting/:id" element={<EditJobPostings />} /> {/* Route for EditJobPostings */}
+          <Route path="/create-job-posting" element={<CreateJobPosting />} /> {/* Route for CreateJobPosting */}
+
         </Routes>
         <Footer />
       </div>
@@ -46,20 +51,11 @@ function App() {
 }
 
 function JobsPage({ jobs }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const searchParams = new URLSearchParams(location.search);
-  const jobType = searchParams.get('type');
-
-  const filteredJobs = jobType
-    ? jobs.filter((job) => job.type.toLowerCase() === jobType.toLowerCase())
-    : jobs;
-
   return (
     <Container className="my-5">
       <Row>
         <Col>
-          <Jobs jobs={filteredJobs} />
+          <Jobs jobs={jobs} />
         </Col>
       </Row>
     </Container>

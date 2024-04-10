@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
-import AdminJobPostings from './AdminJobPostings'; // Import the AdminJobPostings component
 
 const UserProfileComponent = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -61,23 +60,13 @@ const UserProfileComponent = () => {
     navigate('/login');
   };
 
-  const handleEdit = (jobPosting) => {
-    // Handle edit action
-    console.log('Edit:', jobPosting);
-  };
-
-  const handleDelete = (jobPosting) => {
-    // Handle delete action
-    console.log('Delete:', jobPosting);
-  };
-
   return (
-    <div style={{ margin: '40px auto', maxWidth: '650px', lineHeight: '1.6', fontSize: '18px', color: '#444', padding: '0 10px' }}>
+    <div style={{ margin: '40px auto', maxWidth: '650px', lineHeight: '1.6', fontSize: '20px', color: '#444', padding: '0 10px', fontFamily: 'Arial, sans-serif' }}>
       <Container className="py-5">
         <Row className="justify-content-center mb-4">
           <Col md={8}>
             <Card>
-              <Card.Header>
+              <Card.Header style={{ fontSize: '24px', fontWeight: 'bold' }}>
                 <h2>User Profile</h2>
                 <Button variant="danger" onClick={handleLogout}>Logout</Button>
               </Card.Header>
@@ -100,7 +89,7 @@ const UserProfileComponent = () => {
         {/* Add link to AdminJobPostings */}
         <Row className="justify-content-center mb-3">
           <Col md={8}>
-            <Link to="/admin-job-postings">Admin Job Postings</Link>
+            <Link to="/admin-job-postings" style={{ fontSize: '20px', color: '#007bff', textDecoration: 'none', fontWeight: 'bold' }}>Admin Job Postings</Link>
           </Col>
         </Row>
 
@@ -113,11 +102,9 @@ const UserProfileComponent = () => {
                 style={{ backgroundColor: index % 2 === 0 ? '#f5f5f5' : '#ffffff', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
               >
                 <Card.Body>
-                  <Card.Title>{posting.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{posting.company_name}</Card.Subtitle>
-                  <Card.Text>{posting.job_type}</Card.Text>
-                  <Button variant="primary" onClick={() => handleEdit(posting)}>Edit</Button>{' '}
-                  <Button variant="danger" onClick={() => handleDelete(posting)}>Delete</Button>
+                  <Card.Title style={{ fontSize: '22px', fontWeight: 'bold' }}>{posting.title}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted" style={{ fontSize: '18px', fontWeight: 'bold' }}>{posting.company_name}</Card.Subtitle>
+                  <Card.Text style={{ fontSize: '18px' }}>{posting.job_type}</Card.Text>
                 </Card.Body>
               </Card>
             ))}

@@ -19,7 +19,7 @@ const JobPostingComponent = () => {
   }, []);
 
   return (
-    <Container className="my-5" style={{ paddingBottom: '30vh' }}> {/* Added style for padding */}
+    <Container className="my-5">
       <Row xs={1} md={2} lg={3} className="g-4">
         {jobPostings.map((posting) => (
           <Col key={posting.id}>

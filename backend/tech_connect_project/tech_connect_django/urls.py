@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from accounts.views import UserCreateView
+from tech_connect.views import JobPostingDetail
+
 
 
 urlpatterns = [
@@ -25,6 +27,8 @@ urlpatterns = [
     path('', include('tech_connect.urls')),
     path('api/', include('api.urls')),
     path('register/', UserCreateView.as_view(), name='user-create'),
+
+    
 
 
 

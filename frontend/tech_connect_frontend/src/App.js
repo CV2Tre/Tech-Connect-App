@@ -40,9 +40,9 @@ function App() {
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/profile" element={<UserProfileComponent />} />
           <Route path="/admin-job-postings" element={<AdminJobPostings />} />
-          <Route path="/edit-job-posting/:id" element={<EditJobPostings />} /> {/* Route for EditJobPostings */}
-          <Route path="/create-job-posting" element={<CreateJobPosting />} /> {/* Route for CreateJobPosting */}
-
+          {/* Adjust the route path for EditJobPostings */}
+          <Route path="/edit-job-posting/:id" element={<EditJobPostings />} /> 
+          <Route path="/create-job-posting" element={<CreateJobPosting />} />
         </Routes>
         <Footer />
       </div>

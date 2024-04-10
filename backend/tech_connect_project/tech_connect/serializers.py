@@ -17,10 +17,6 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class JobPostingSerializer(serializers.ModelSerializer):
-    experience_levels = ExperienceLevelSerializer(many=True, read_only=True)
-    technologies = TechnologySerializer(many=True, read_only=True)
-    categories = CategorySerializer(many=True, read_only=True)
-
     class Meta:
         model = JobPosting
-        fields = ['id', 'title', 'description', 'company_name', 'job_type', 'experience_levels', 'salary_range', 'posted_date', 'categories', 'technologies']
+        fields = '__all__'

@@ -18,7 +18,7 @@ Our mission is simple yet ambitious: to empower developers to find their dream j
 
 ## Technologies Utilized
 
-- **Cutting-edge Frontend:** Leveraging the power of React.js to deliver a sleek and responsive user interface.
+- **Cutting-edge Frontend:** Leveraging the power of React.js to deliver a sleek and responsive user interface, including React-Bootstrap
 - **Robust Backend Infrastructure:** Built on the reliable foundation of Django, ensuring scalability and performance.
 - **Secure Database Management:** Utilizing PostgreSQL for efficient data storage and retrieval, prioritizing data integrity and security.
 

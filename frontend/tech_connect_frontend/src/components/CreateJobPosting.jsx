@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CreateJobPosting = ({ jobId }) => {
   const navigate = useNavigate();
@@ -76,7 +76,8 @@ const CreateJobPosting = ({ jobId }) => {
   };
 
   return (
-    <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '90vh', paddingBottom: '10vh' }}>
+    <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingBottom: '20px' }}>
+      <Link to="/manage-job-postings" style={{ marginBottom: '20px' }}>Back</Link>
       <div style={{ width: '50%', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', marginBottom: '50px' }}>
         <h2 style={{ marginBottom: '20px' }}>{jobId ? 'Edit Job Posting' : 'Create Job Posting'}</h2>
         <Form onSubmit={handleSubmit} style={{ width: '100%' }}>

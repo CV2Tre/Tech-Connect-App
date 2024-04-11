@@ -164,7 +164,7 @@ const EditJobPosting = () => {
           <Button variant="primary" type="submit" style={{ width: '100%' }}>
             Update
           </Button>
-          <Button variant="secondary" onClick={() => navigate('/admin-job-postings/')} style={{ marginTop: '10px', width: '100%' }}>
+          <Button variant="secondary" onClick={() => navigate('/manage-job-postings/')} style={{ marginTop: '10px', width: '100%' }}>
             Cancel
           </Button>
         </Form>

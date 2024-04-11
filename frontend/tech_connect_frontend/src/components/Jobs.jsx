@@ -4,6 +4,42 @@ import { Button, Badge, Card, Row, Col, Container } from 'react-bootstrap';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
+const categories = [
+  {
+    id: 1,
+    name: 'Back-End',
+  },
+  {
+    id: 2,
+    name: 'Front-End',
+  },
+  {
+    id: 3,
+    name: 'Full-Stack',
+  },
+];
+
+const experienceLevels = [
+  {
+    id: 1,
+    name: 'Junior',
+    color: '#ADD8E6', // Light blue
+    textColor: '#333', // Dark gray
+  },
+  {
+    id: 2,
+    name: 'Mid-Level',
+    color: '#87CEEB', // Sky blue
+    textColor: '#333', // Dark gray
+  },
+  {
+    id: 3,
+    name: 'Senior',
+    color: '#1E90FF', // Dodger blue
+    textColor: '#fff', // White
+  },
+];
+
 function Jobs({ jobs }) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -16,7 +52,7 @@ function Jobs({ jobs }) {
   useEffect(() => {
     if (jobCategory) {
       const filteredJobsByCategory = jobs.filter((job) =>
-        job.categories.some((category) => category.name.toLowerCase() === jobCategory.toLowerCase())
+        job.categories.some((categoryId) => categories.find(c => c.id === categoryId)?.name.toLowerCase() === jobCategory.toLowerCase())
       );
       setAllJobs(filteredJobsByCategory);
       setSelectedFilters([jobCategory.toLowerCase()]);
@@ -32,7 +68,7 @@ function Jobs({ jobs }) {
       setSelectedFilters([]);
       setSelectedJob(null);
     }
-  }, [jobs, jobCategory]);
+  }, [jobs, jobCategory, categories]);
 
   const handleFilterClick = (filter) => {
     if (selectedFilters.includes(filter)) {
@@ -54,15 +90,22 @@ function Jobs({ jobs }) {
 
   const filteredJobs = allJobs.filter((job) => {
     const allFilters = [
-      ...new Set([...job.categories.map((category) => category.name.toLowerCase()), ...job.technologies.map((tech) => tech.name.toLowerCase())]),
+      ...new Set([...job.categories.map((categoryId) => categories.find(c => c.id === categoryId)?.name.toLowerCase()), ...job.technologies.map((tech) => tech.name.toLowerCase())]),
     ];
     return selectedFilters.length === 0 || selectedFilters.some((filter) => allFilters.includes(filter));
   });
 
-  const categoryColors = {
-    'front-end': '#007AFF',
-    'back-end': '#34C759',
-    'full-stack': '#FF9500',
+  const getCategoryColor = (categoryId) => {
+    switch (categoryId) {
+      case 1:
+        return '#007AFF'; // Back-End
+      case 2:
+        return '#34C759'; // Front-End
+      case 3:
+        return '#FF9500'; // Full-Stack
+      default:
+        return '#6c757d'; // Default
+    }
   };
 
   const technologyColors = {
@@ -99,30 +142,26 @@ function Jobs({ jobs }) {
       <Row>
         <Col xs={12} sm={4} md={4}>
           <div className="mb-4" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {Object.keys(categoryColors).map(
-              (category) =>
-                category !== 'data-science' &&
-                category !== 'machine-learning' && (
-                  <Badge
-                    key={category}
-                    pill
-                    bg={selectedFilters.includes(category.toLowerCase()) ? 'warning' : 'secondary'}
-                    style={{
-                      margin: '0.5rem',
-                      cursor: 'pointer',
-                      backgroundColor: selectedFilters.includes(category.toLowerCase()) ? 'yellow' : categoryColors[category],
-                      color: selectedFilters.includes(category.toLowerCase()) ? 'black' : 'white',
-                      padding: '0.75rem 1.5rem',
-                      fontSize: '1.2rem',
-                      transition: 'background-color 0.3s ease-in-out',
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    }}
-                    onClick={() => handleFilterClick(category.toLowerCase())}
-                  >
-                    {category}
-                  </Badge>
-                )
-            )}
+            {categories.map((category) => (
+              <Badge
+                key={category.id}
+                pill
+                bg={selectedFilters.includes(category.name.toLowerCase()) ? 'warning' : 'secondary'}
+                style={{
+                  margin: '0.5rem',
+                  cursor: 'pointer',
+                  backgroundColor: selectedFilters.includes(category.name.toLowerCase()) ? 'yellow' : getCategoryColor(category.id),
+                  color: selectedFilters.includes(category.name.toLowerCase()) ? 'black' : 'white',
+                  padding: '0.75rem 1.5rem',
+                  fontSize: '1.2rem',
+                  transition: 'background-color 0.3s ease-in-out',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                }}
+                onClick={() => handleFilterClick(category.name.toLowerCase())}
+              >
+                {category.name}
+              </Badge>
+            ))}
             <Button
               variant="danger"
               style={{
@@ -168,7 +207,7 @@ function Jobs({ jobs }) {
                       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                     },
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                    backgroundColor: job.categories.length > 0 ? categoryColors[job.categories[0].name.toLowerCase()] : '#6c757d',
+                    backgroundColor: job.categories.length > 0 ? getCategoryColor(job.categories[0]) : '#6c757d',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
@@ -181,19 +220,19 @@ function Jobs({ jobs }) {
                     <p>Job Type: {job.job_type}</p>
                     <p>
                       Categories:{' '}
-                      {job.categories.map((category) => (
+                      {job.categories.map((categoryId) => (
                         <Badge
-                          key={category.id}
+                          key={categoryId}
                           pill
-                          bg={selectedFilters.includes(category.name.toLowerCase()) ? 'warning' : 'secondary'}
+                          bg={selectedFilters.includes(categories.find(c => c.id === categoryId)?.name.toLowerCase()) ? 'warning' : 'secondary'}
                           style={{
                             margin: '0.25rem',
-                            backgroundColor: selectedFilters.includes(category.name.toLowerCase()) ? 'yellow' : categoryColors[category.name.toLowerCase()] || '#6c757d',
-                            color: selectedFilters.includes(category.name.toLowerCase()) ? 'black' : 'white',
+                            backgroundColor: selectedFilters.includes(categories.find(c => c.id === categoryId)?.name.toLowerCase()) ? 'yellow' : getCategoryColor(categoryId),
+                            color: selectedFilters.includes(categories.find(c => c.id === categoryId)?.name.toLowerCase()) ? 'black' : 'white',
                             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                           }}
                         >
-                          {category.name}
+                          {categories.find(c => c.id === categoryId)?.name || 'Unknown'}
                         </Badge>
                       ))}
                     </p>
@@ -229,7 +268,7 @@ function Jobs({ jobs }) {
               <p>Job Type: {selectedJob.job_type}</p>
               <p>
                 Categories:{' '}
-                {selectedJob.categories.map((category) => category.name).join(', ')}
+                {selectedJob.categories.map((categoryId) => categories.find(c => c.id === categoryId)?.name).join(', ')}
               </p>
               <p>
                 Technologies:{' '}

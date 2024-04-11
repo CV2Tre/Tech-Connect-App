@@ -3,6 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 
+const categories = [
+  { id: 'back-end', name: 'Back-End', color: '#90EE90' },
+  { id: 'front-end', name: 'Front-End', color: '#ADD8E6' },
+  { id: 'full-stack', name: 'Full Stack', color: '#FFA07A' },
+];
+
 function Home() {
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
@@ -10,9 +16,7 @@ function Home() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        console.log('Fetching jobs from API...');
         const response = await axios.get('http://localhost:8000/job-postings/');
-        console.log('Job data received:', response.data);
         setJobs(response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);
@@ -28,89 +32,31 @@ function Home() {
 
   return (
     <Container>
-      <main>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '20px' }}>
-            <Link to="/jobs?category=back-end" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div onClick={() => handleCardClick('back-end')}>
+      <main style={{ marginBottom: '100px' }}>
+        
+      
+        <Row className="justify-content-center mt-4">
+          {categories.map((category, index) => (
+            <Col key={index} xs={12} sm={6} md={4} className="mb-4">
+              <Link to={`/jobs?category=${category.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Card
                   style={{
-                    width: '250px',
-                    height: '250px',
-                    border: '2px solid #90EE90',
+                    border: `2px solid ${category.color}`,
                     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-                    backgroundColor: '#90EE90',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    textAlign: 'center',
+                    backgroundColor: category.color,
                     cursor: 'pointer',
                   }}
+                  onClick={() => handleCardClick(category.id)}
                 >
                   <Card.Body>
-                    <Card.Title style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Back-End</Card.Title>
-                    <Card.Text style={{ fontSize: '1.2rem' }}>
-                      Discover rewarding back-end development roles.
-                    </Card.Text>
+                    <Card.Title style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{category.name}</Card.Title>
+                    <Card.Text style={{ fontSize: '1.2rem' }}>Discover {category.name} opportunities</Card.Text>
                   </Card.Body>
                 </Card>
-              </div>
-            </Link>
-            <Link to="/jobs?category=front-end" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div onClick={() => handleCardClick('front-end')}>
-                <Card
-                  style={{
-                    width: '250px',
-                    height: '250px',
-                    border: '2px solid #ADD8E6',
-                    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-                    backgroundColor: '#ADD8E6',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Card.Body>
-                    <Card.Title style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Front-End</Card.Title>
-                    <Card.Text style={{ fontSize: '1.2rem' }}>
-                      Explore exciting front-end development opportunities.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Link>
-            <Link to="/jobs?category=full-stack" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div onClick={() => handleCardClick('full-stack')}>
-                <Card
-                  style={{
-                    width: '250px',
-                    height: '250px',
-                    border: '2px solid #FFA07A',
-                    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-                    backgroundColor: '#FFA07A',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Card.Body>
-                    <Card.Title style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Full Stack</Card.Title>
-                    <Card.Text style={{ fontSize: '1.2rem' }}>
-                      Explore versatile full-stack development opportunities.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Link>
-          </div>
-        </div>
+              </Link>
+            </Col>
+          ))}
+        </Row>
       </main>
     </Container>
   );

@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Navigation from './Navigation';
+
 function Header() {
   const navigate = useNavigate();
 
@@ -13,7 +14,7 @@ function Header() {
   return (
     <Container>
       <Navigation />
-      <main>
+      <main style={{ paddingTop: '100px' }}>
         <div
           style={{
             display: 'flex',

@@ -39,16 +39,23 @@ function Jobs({ jobs }) {
       );
       setAllJobs(filteredJobsByCategory);
       setSelectedFilters([jobCategory.toLowerCase()]);
-
+  
       if (filteredJobsByCategory.length > 0) {
-        setSelectedJob(filteredJobsByCategory[0]);
+        const randomIndex = Math.floor(Math.random() * filteredJobsByCategory.length);
+        setSelectedJob(filteredJobsByCategory[randomIndex]);
       } else {
         setSelectedJob(null);
       }
     } else {
       setAllJobs(jobs);
       setSelectedFilters([]);
-      setSelectedJob(null);
+  
+      if (jobs.length > 0) {
+        const randomIndex = Math.floor(Math.random() * jobs.length);
+        setSelectedJob(jobs[randomIndex]);
+      } else {
+        setSelectedJob(null);
+      }
     }
   }, [jobs, jobCategory, categories]);
 
@@ -179,7 +186,6 @@ function Jobs({ jobs }) {
             customTransition="all .5s"
             transitionDuration={500}
             containerClass="carousel-container"
-            removeArrowOnDeviceType={['tablet', 'mobile']}
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
             className="mb-4" // Added padding bottom to the carousel

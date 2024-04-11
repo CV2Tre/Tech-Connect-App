@@ -109,7 +109,8 @@ function Jobs({ jobs }) {
   return (
     <Container className="my-5">
       <Row>
-        <Col xs={12} sm={4} md={4}>
+        {/* First section: Category buttons */}
+        <Col xs={12} sm={12} md={12} className="mb-4">
           <center>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <Button variant="info" style={{ marginBottom: '1.5rem', padding: '1rem 2rem', fontSize: '1.4rem' }}>
@@ -117,7 +118,7 @@ function Jobs({ jobs }) {
               </Button>
             </Link>
           </center>
-          <div className="mb-4" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             {categories.map((category) => (
               <Badge
                 key={category.id}
@@ -155,7 +156,8 @@ function Jobs({ jobs }) {
             </Button>
           </div>
         </Col>
-        <Col xs={12} sm={8} md={8}>
+        {/* Second section: Job cards */}
+        <Col xs={12} sm={12} md={12}>
           <Carousel
             responsive={responsive}
             swipeable={true}
@@ -172,6 +174,7 @@ function Jobs({ jobs }) {
             removeArrowOnDeviceType={['tablet', 'mobile']}
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
+            className="mb-4" // Added padding bottom to the carousel
           >
             {filteredJobs.map((job) => (
               <div key={job.id} style={{ padding: '0 20px' }}>
@@ -233,7 +236,8 @@ function Jobs({ jobs }) {
             ))}
           </Carousel>
         </Col>
-        <Col xs={12} sm={4} md={4}>
+        {/* Third section: Selected job details */}
+        <Col xs={12} sm={12} md={12}>
           {selectedJob && (
             <Card className="mb-4" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', backgroundColor: jobCardColor, textAlign: 'center', padding: '20px' }}>
               <h2>{selectedJob.title}</h2>

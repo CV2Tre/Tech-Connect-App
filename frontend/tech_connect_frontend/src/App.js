@@ -11,11 +11,14 @@ import UserProfileComponent from './components/UserProfile';
 import AdminJobPostings from './components/AdminJobPostings';
 import EditJobPostings from './components/EditJobPosting'; // Import the EditJobPostings component
 import CreateJobPosting from './components/CreateJobPosting';
+import './App.css'; // Import your CSS file
+
 
 function App() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
+    document.title  ='Tech Connect'
     const fetchJobs = async () => {
       try {
         console.log('Fetching jobs from API...');

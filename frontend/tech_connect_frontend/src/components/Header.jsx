@@ -1,27 +1,10 @@
 // Home.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Container, Row, Col, Card } from 'react-bootstrap';
-
+import { Container } from 'react-bootstrap';
+import Navigation from './Navigation';
 function Header() {
-  const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        console.log('Fetching jobs from API...');
-        const response = await axios.get('http://localhost:8000/job-postings/');
-        console.log('Job data received:', response.data);
-        setJobs(response.data);
-      } catch (error) {
-        console.error('Error fetching jobs:', error);
-      }
-    };
-
-    fetchJobs();
-  }, []);
 
   const handleCardClick = (category) => {
     navigate(`/jobs?category=${category}`);
@@ -29,6 +12,7 @@ function Header() {
 
   return (
     <Container>
+      <Navigation />
       <main>
         <div
           style={{
@@ -46,7 +30,7 @@ function Header() {
           </p>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-         
+          {/* You can add your other components here */}
         </div>
       </main>
     </Container>

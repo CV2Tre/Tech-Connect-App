@@ -1,44 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, Badge, Card, Row, Col, Container } from 'react-bootstrap';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 const categories = [
-  {
-    id: 1,
-    name: 'Back-End',
-  },
-  {
-    id: 2,
-    name: 'Front-End',
-  },
-  {
-    id: 3,
-    name: 'Full-Stack',
-  },
+  { id: 1, name: 'Back-End' },
+  { id: 2, name: 'Front-End' },
+  { id: 3, name: 'Full-Stack' },
 ];
 
-const experienceLevels = [
-  {
-    id: 1,
-    name: 'Junior',
-    color: '#ADD8E6', // Light blue
-    textColor: '#333', // Dark gray
-  },
-  {
-    id: 2,
-    name: 'Mid-Level',
-    color: '#87CEEB', // Sky blue
-    textColor: '#333', // Dark gray
-  },
-  {
-    id: 3,
-    name: 'Senior',
-    color: '#1E90FF', // Dodger blue
-    textColor: '#fff', // White
-  },
-];
+const technologyColors = {
+  react: '#007AFF',
+  angular: '#34C759',
+  vue: '#FF9500',
+  python: '#FF2D55',
+  java: '#5856D6',
+  javascript: '#8E8E93',
+};
+
+const getCategoryColor = (categoryId) => {
+  switch (categoryId) {
+    case 1:
+      return '#30d5c8'; // Back-End
+    case 2:
+      return '#ffc0cb'; // Front-End
+    case 3:
+      return '#CBC3E3'; // Full-Stack
+    default:
+      return '#6c757d'; // Default
+  }
+};
 
 function Jobs({ jobs }) {
   const location = useLocation();
@@ -57,7 +49,6 @@ function Jobs({ jobs }) {
       setAllJobs(filteredJobsByCategory);
       setSelectedFilters([jobCategory.toLowerCase()]);
 
-      // Set the selected job to the first job in the filtered array
       if (filteredJobsByCategory.length > 0) {
         setSelectedJob(filteredJobsByCategory[0]);
       } else {
@@ -95,28 +86,6 @@ function Jobs({ jobs }) {
     return selectedFilters.length === 0 || selectedFilters.some((filter) => allFilters.includes(filter));
   });
 
-  const getCategoryColor = (categoryId) => {
-    switch (categoryId) {
-      case 1:
-        return '#007AFF'; // Back-End
-      case 2:
-        return '#34C759'; // Front-End
-      case 3:
-        return '#FF9500'; // Full-Stack
-      default:
-        return '#6c757d'; // Default
-    }
-  };
-
-  const technologyColors = {
-    react: '#007AFF',
-    angular: '#34C759',
-    vue: '#FF9500',
-    python: '#FF2D55',
-    java: '#5856D6',
-    javascript: '#8E8E93',
-  };
-
   const jobCardColor = '#ADD8E6'; // Light turquoise
 
   const responsive = {
@@ -141,6 +110,13 @@ function Jobs({ jobs }) {
     <Container className="my-5">
       <Row>
         <Col xs={12} sm={4} md={4}>
+          <center>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Button variant="info" style={{ marginBottom: '1.5rem', padding: '1rem 2rem', fontSize: '1.4rem' }}>
+                Home
+              </Button>
+            </Link>
+          </center>
           <div className="mb-4" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             {categories.map((category) => (
               <Badge
@@ -203,9 +179,6 @@ function Jobs({ jobs }) {
                   style={{
                     cursor: 'pointer',
                     transition: 'box-shadow 0.3s ease-in-out',
-                    ':hover': {
-                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                    },
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                     backgroundColor: job.categories.length > 0 ? getCategoryColor(job.categories[0]) : '#6c757d',
                     color: 'white',

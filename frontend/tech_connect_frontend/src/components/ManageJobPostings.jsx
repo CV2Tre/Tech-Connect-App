@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Table, Button, Container } from 'react-bootstrap';
 
-const AdminJobPostings = () => {
+const ManageJobPostings = () => {
   const [jobPostings, setJobPostings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -52,18 +52,20 @@ const AdminJobPostings = () => {
     <Container className="mt-5">
       <header className="d-flex justify-content-between align-items-center mb-4">
         <Link to="/profile">Back</Link>
-        <h2 className="mb-0">Admin Job Postings</h2>
+        <h2 className="mb-0">Manage Job Postings</h2>
         <div>
-          <Link to="/create-job-posting" className="me-3">
-            <Button variant="primary">Create Job Posting</Button>
-          </Link>
+          <div className="me-3">
+            <Link to="/create-job-posting">
+              <Button variant="primary">Create Job Posting</Button>
+            </Link>
+          </div>
           <Button variant="info" onClick={fetchJobPostings}>Refresh Job Postings</Button>
         </div>
       </header>
 
       {error && <div className="alert alert-danger">Error: {error}</div>}
 
-      <div className="table-responsive">
+      <div className="table-responsive" style={{ marginBottom: '30px' }}>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -107,4 +109,4 @@ const AdminJobPostings = () => {
   );
 };
 
-export default AdminJobPostings;
+export default ManageJobPostings;

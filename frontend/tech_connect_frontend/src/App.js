@@ -8,10 +8,11 @@ import Jobs from './components/Jobs';
 import Header from './components/Header';
 import LoginComponent from './components/Login';
 import UserProfileComponent from './components/UserProfile';
-import AdminJobPostings from './components/AdminJobPostings';
+import AdminJobPostings from './components/ManageJobPostings';
 import EditJobPostings from './components/EditJobPosting'; // Import the EditJobPostings component
 import CreateJobPosting from './components/CreateJobPosting';
 import './App.css'; // Import your CSS file
+import ManageJobPostings from './components/ManageJobPostings';
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           <Route path="/jobs" element={<JobsPage jobs={jobs} />} />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/profile" element={<UserProfileComponent />} />
-          <Route path="/admin-job-postings" element={<AdminJobPostings />} />
+          <Route path="/manage-job-postings" element={<ManageJobPostings />} />
           {/* Adjust the route path for EditJobPostings */}
           <Route path="/edit-job-posting/:id" element={<EditJobPostings />} /> 
           <Route path="/create-job-posting" element={<CreateJobPosting />} />
@@ -58,7 +59,7 @@ function JobsPage({ jobs }) {
     <Container className="my-5">
       <Row>
         <Col>
-          <Jobs jobs={jobs} />
+        <Jobs jobs={jobs} />
         </Col>
       </Row>
     </Container>

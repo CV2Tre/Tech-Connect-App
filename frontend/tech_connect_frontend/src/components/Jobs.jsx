@@ -10,15 +10,6 @@ const categories = [
   { id: 3, name: 'Full-Stack' },
 ];
 
-const technologyColors = {
-  react: '#007AFF',
-  angular: '#34C759',
-  vue: '#FF9500',
-  python: '#FF2D55',
-  java: '#5856D6',
-  javascript: '#8E8E93',
-};
-
 const getCategoryColor = (categoryId) => {
   switch (categoryId) {
     case 1:
@@ -81,7 +72,7 @@ function Jobs({ jobs }) {
 
   const filteredJobs = allJobs.filter((job) => {
     const allFilters = [
-      ...new Set([...job.categories.map((categoryId) => categories.find(c => c.id === categoryId)?.name.toLowerCase()), ...job.technologies.map((tech) => tech.name.toLowerCase())]),
+      ...new Set([...job.categories.map((categoryId) => categories.find(c => c.id === categoryId)?.name.toLowerCase())]),
     ];
     return selectedFilters.length === 0 || selectedFilters.some((filter) => allFilters.includes(filter));
   });
@@ -107,13 +98,13 @@ function Jobs({ jobs }) {
   };
 
   return (
-    <Container className="my-5">
+    <Container className="">
       <Row>
         {/* First section: Category buttons */}
         <Col xs={12} sm={12} md={12} className="mb-4">
           <center>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button variant="info" style={{ marginBottom: '1.5rem', padding: '1rem 2rem', fontSize: '1.4rem' }}>
+              <Button variant="info" style={{ marginBottom: '1.5rem', padding: '2rem', fontSize: '1.4rem' }}>
                 Home
               </Button>
             </Link>
@@ -155,6 +146,23 @@ function Jobs({ jobs }) {
               Reset
             </Button>
           </div>
+        </Col>
+        {/* Third section: Selected job details */}
+        <Col xs={12} sm={12} md={12} className="mb-4">
+          {selectedJob && (
+            <Card style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', backgroundColor: jobCardColor, textAlign: 'center', padding: '20px' }}>
+              <h2>{selectedJob.title}</h2>
+              <p>Company: {selectedJob.company_name}</p>
+              <p>Job Type: {selectedJob.job_type}</p>
+              <p>
+                Categories:{' '}
+                {selectedJob.categories.map((categoryId) => categories.find(c => c.id === categoryId)?.name).join(', ')}
+              </p>
+              <p>Description: {selectedJob.description}</p>
+              <p>Salary Range: {selectedJob.salary_range}</p>
+              <p>Posted Date: {selectedJob.posted_date}</p>
+            </Card>
+          )}
         </Col>
         {/* Second section: Job cards */}
         <Col xs={12} sm={12} md={12}>
@@ -212,50 +220,11 @@ function Jobs({ jobs }) {
                         </Badge>
                       ))}
                     </p>
-                    <p>
-                      Technologies:{' '}
-                      {job.technologies.map((tech) => (
-                        <Badge
-                          key={tech.id}
-                          pill
-                          bg={selectedFilters.includes(tech.name.toLowerCase()) ? 'warning' : 'secondary'}
-                          style={{
-                            margin: '0.25rem',
-                            backgroundColor: selectedFilters.includes(tech.name.toLowerCase()) ? 'yellow' : technologyColors[tech.name.toLowerCase()] || '#6c757d',
-                            color: selectedFilters.includes(tech.name.toLowerCase()) ? 'black' : 'white',
-                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                          }}
-                        >
-                          {tech.name}
-                        </Badge>
-                      ))}
-                    </p>
                   </Card.Body>
                 </Card>
               </div>
             ))}
           </Carousel>
-        </Col>
-        {/* Third section: Selected job details */}
-        <Col xs={12} sm={12} md={12}>
-          {selectedJob && (
-            <Card className="mb-4" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', backgroundColor: jobCardColor, textAlign: 'center', padding: '20px' }}>
-              <h2>{selectedJob.title}</h2>
-              <p>Company: {selectedJob.company_name}</p>
-              <p>Job Type: {selectedJob.job_type}</p>
-              <p>
-                Categories:{' '}
-                {selectedJob.categories.map((categoryId) => categories.find(c => c.id === categoryId)?.name).join(', ')}
-              </p>
-              <p>
-                Technologies:{' '}
-                {selectedJob.technologies.map((tech) => tech.name).join(', ')}
-              </p>
-              <p>Description: {selectedJob.description}</p>
-              <p>Salary Range: {selectedJob.salary_range}</p>
-              <p>Posted Date: {selectedJob.posted_date}</p>
-            </Card>
-          )}
         </Col>
       </Row>
     </Container>

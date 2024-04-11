@@ -2,6 +2,8 @@
 
 Welcome to **Tech Connect**, where we bridge the gap between talent and opportunity in the tech world! 👨‍💻🌐
 
+![Tech Connect Logo](techconnect.png)
+
 ## Vision
 
 At **Tech Connect**, our vision is clear: to revolutionize the hiring process for developers and companies alike. By leveraging cutting-edge technology and unparalleled user experience, we aspire to become the go-to platform for top-tier talent acquisition in the tech world.
@@ -48,4 +50,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 🌟 **Tech Connect:** Connecting developers with their dream jobs! 🚀✨
-
